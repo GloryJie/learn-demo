@@ -1,0 +1,38 @@
+spring:
+  shardingsphere:
+    datasource:
+      # 数据源名称,逗号间不能存在空格
+      names: sharding_ds-0,sharding-ds-1
+      sharding-ds-0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/sharding-ds-0?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+        username: root
+        password: 123456
+      sharding-ds-1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/sharding-ds-1?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+        username: root
+        password: 123456
+    sharding:
+      # 没有配置分片的表想回路由到默认的数据源
+      default-data-source-name: sharding-ds-0
+      default-database-strategy:
+        inline:
+          sharding-column: user_id
+          algorithm-expression: sharding-ds-$->{user_id % 2}
+      tables:
+        t_user:
+          actual-data-nodes: sharding-ds-$->{0..1}.t_user
+          # 主键自动生成
+          key-generator.column: user_id
+          # 使用SNOWFLAKE算法来生成
+          key-generator.type: SNOWFLAKE
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    # 指定方言, 建表时使用Innodb引擎,否则使用MyIsam
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    database: mysql
