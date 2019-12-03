@@ -1,0 +1,6 @@
+spring:
+  mail:
+    host:
+    port:
+    password:
+    username:

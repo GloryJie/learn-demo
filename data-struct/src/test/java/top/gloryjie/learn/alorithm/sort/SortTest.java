@@ -59,5 +59,12 @@ public class SortTest {
         sortAlgorithm.sort(elements);
     }
 
+    @Test
+    public void quickSortTest() {
+        Sort<Integer> sortAlgorithm = new QuickSort<>();
+        elements[5] = elements[8];
+        sortAlgorithm.sort(elements);
+    }
+
 
 }

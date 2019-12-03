@@ -15,4 +15,8 @@ public interface Sort<E extends Comparable> {
         elements[j] = temp;
     }
 
+    default boolean less(E i, E j) {
+        return i.compareTo(j) < 0;
+    }
+
 }

@@ -15,6 +15,8 @@
         <module>distributed-lock</module>
         <module>mybatis</module>
         <module>data-struct</module>
+        <module>mq</module>
+        <module>apache-poi</module>
     </modules>
 
     <parent>

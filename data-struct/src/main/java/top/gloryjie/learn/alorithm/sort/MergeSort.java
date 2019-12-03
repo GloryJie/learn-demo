@@ -1,6 +1,5 @@
 package top.gloryjie.learn.alorithm.sort;
 
-import javax.security.auth.login.LoginException;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
@@ -20,7 +19,7 @@ public class MergeSort<E extends Comparable> implements Sort<E> {
     @Override
     public E[] sort(E[] elements) {
         auxiliaryArray = (E[]) Array.newInstance(elements[0].getClass(), elements.length);
-        sort(elements, 0, elements.length -1);
+        sort(elements, 0, elements.length - 1);
         return elements;
 //        return simpleAchieve(elements);
     }
@@ -28,13 +27,14 @@ public class MergeSort<E extends Comparable> implements Sort<E> {
 
     /**
      * 原地归并
+     *
      * @param elements
      * @param low
      * @param high
      */
     private void sort(E[] elements, int low, int high) {
         if (high <= low) return;
-        int mid =low + (high - low) / 2;
+        int mid = low + (high - low) / 2;
         sort(elements, low, mid);
         sort(elements, mid + 1, high);
         merge(elements, low, mid, high);
