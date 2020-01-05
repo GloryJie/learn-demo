@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+         updateCheck="false">
+
+    <!-- 指定一个文件目录，当EHCache把数据写到硬盘上时，将把数据写到这个文件目录下 -->
+    <diskStore path="/Users/jie/Desktop"/>
+
+    <!-- 默认的管理策略 -->
+    <defaultCache eternal="false"
+                  maxElementsInMemory="10000"
+                  overflowToDisk="false"
+                  diskPersistent="false"
+                  timeToIdleSeconds="120"
+                  timeToLiveSeconds="120"
+                  diskExpiryThreadIntervalSeconds="120"
+                  memoryStoreEvictionPolicy="LRU"/>
+
+    <!-- 此缓存最多可以存活timeToLiveSeconds秒，如果期间超过timeToIdleSeconds秒未访问，缓存失效 -->
+    <cache name="userCache"
+           maxElementsInMemory="100"
+           eternal="false"
+           overflowToDisk="false"
+           diskPersistent="false"
+           timeToLiveSeconds="10"
+           timeToIdleSeconds="6"
+           memoryStoreEvictionPolicy="LRU"
+    />
+
+    <!--持久化缓存-->
+    <cache name="persistentCache"
+           maxElementsInMemory="10"
+           eternal="true"
+           overflowToDisk="true"
+           diskPersistent="true"
+    />
+
+
+</ehcache>

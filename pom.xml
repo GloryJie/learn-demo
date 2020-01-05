@@ -17,6 +17,8 @@
         <module>data-struct</module>
         <module>mq</module>
         <module>apache-poi</module>
+        <module>java-base</module>
+        <module>cache</module>
     </modules>
 
     <parent>

@@ -34,6 +34,7 @@ public class CyclicBarrierDemo {
                     TimeUnit.SECONDS.sleep(2);
                     System.out.println("build component 1 done");
                     cyclicBarrier.await();
+                    TimeUnit.SECONDS.sleep(2);
                     // 只有cyclicBarrier 为0 时,才会执行下面的代码
                     System.out.println("clean component 1 done");
                 } catch (InterruptedException | BrokenBarrierException e) {
@@ -49,8 +50,11 @@ public class CyclicBarrierDemo {
                     TimeUnit.SECONDS.sleep(4);
                     System.out.println("build component 2 done");
                     cyclicBarrier.await();
+                    TimeUnit.SECONDS.sleep(2);
+
                     // 只有cyclicBarrier 为0 时,才会执行下面的代码
                     System.out.println("clean component 2 done");
+
                 } catch (InterruptedException | BrokenBarrierException e) {
                     e.printStackTrace();
                     break;
