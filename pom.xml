@@ -19,6 +19,8 @@
         <module>apache-poi</module>
         <module>java-base</module>
         <module>cache</module>
+        <module>hadoop</module>
+        <module>task-scheduler</module>
     </modules>
 
     <parent>
