@@ -41,7 +41,7 @@ public class TwoNumSum {
         for (int i = 0; i < nums.length; i++) {
             // 直接寻找另一半的目标值
             int anotherHalfValue = target - nums[i];
-            // 此时目标值为从 "未来" 寻找
+            // 此时目标值为从完整表中寻找
             if (map.containsKey(anotherHalfValue) && map.get(anotherHalfValue) != i) {
                 return new int[]{i, map.get(anotherHalfValue)};
             }
@@ -57,7 +57,7 @@ public class TwoNumSum {
     public int[] wayThree(int[] nums, int target) {
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
-            // 直接寻找另一半的1目标值
+            // 直接寻找另一半目标值
             int anotherHalfValue = target - nums[i];
             // 目标值为从"历史"遍历中寻找
             if (map.get(anotherHalfValue) != null) {

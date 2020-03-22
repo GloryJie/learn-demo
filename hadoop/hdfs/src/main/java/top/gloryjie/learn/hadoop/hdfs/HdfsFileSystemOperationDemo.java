@@ -1,12 +1,12 @@
 package top.gloryjie.learn.hadoop.hdfs;
 
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.*;
 import org.apache.hadoop.io.IOUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
 import java.net.URI;
 
 /**
@@ -28,8 +28,8 @@ public class HdfsFileSystemOperationDemo {
         configuration = new Configuration();
         configuration.set("dfs.replication", "1");
 
-        hdfsUri = new URI("hdfs://10.211.55.100");
-        fileSystem = FileSystem.get(hdfsUri, configuration, "root");
+        hdfsUri = new URI("hdfs://hadoop-001:8020");
+        fileSystem = FileSystem.get(hdfsUri, configuration, "vagrant");
     }
 
     @Test
@@ -83,7 +83,7 @@ public class HdfsFileSystemOperationDemo {
         Path path = new Path("/jojo/hello.txt");
 
         try (FSDataInputStream is = fileSystem.open(path)) {
-            ByteOutputStream os = new ByteOutputStream();
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
             IOUtils.copyBytes(is, os, 1024);
 
             System.out.println(os.toString());
