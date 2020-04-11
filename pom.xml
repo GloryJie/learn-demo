@@ -22,6 +22,7 @@
         <module>hadoop</module>
         <module>task-scheduler</module>
         <module>scala</module>
+        <module>design-pattern</module>
     </modules>
 
     <parent>

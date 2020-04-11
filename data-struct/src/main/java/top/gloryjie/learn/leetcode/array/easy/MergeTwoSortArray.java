@@ -1,4 +1,4 @@
-package top.gloryjie.learn.leetcode.array;
+package top.gloryjie.learn.leetcode.array.easy;
 
 import java.util.Arrays;
 
@@ -79,6 +79,7 @@ public class MergeTwoSortArray {
     /**
      * 双指针(或者说三指针), 从前往后
      * 将nums1中的元素复制出来成新数组, 则将nums1Copy, nums2逐个
+     * 剩余元素的长度计算需要留意
      *
      * @param nums1
      * @param m

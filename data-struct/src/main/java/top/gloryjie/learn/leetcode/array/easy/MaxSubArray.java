@@ -1,4 +1,4 @@
-package top.gloryjie.learn.leetcode.array;
+package top.gloryjie.learn.leetcode.array.easy;
 
 /**
  * @author jie
@@ -55,7 +55,7 @@ public class MaxSubArray {
      * 动态规划求解
      * 关键点在于: 为什么之前求和的值(currSum) <= 0时,替换成当前位置的元素?
      * 数组组成有:
-     * 1.假如全是负数，那就是找最大值即可，因为负数肯定越加越大。Math.max(maxNum, currSum);即可求得最大值
+     * 1.假如全是负数，那就是找最大值即可，因为负数越加越小。Math.max(maxNum, currSum);即可求得最大值
      * 2.如果有正数，则肯定从正数开始计算和，不然前面有负值，和肯定变小了，所以从正数开始。
      * 3.当和小于零时，无论下个元素是什么,都会使得相加后反而变小.所以这个区间就告一段落了，而这个区间是否为最大值,已经记录在maxNum中.
      * 然后从下一个正数重新开始计算(也就是又回到 2 了)。
@@ -76,9 +76,7 @@ public class MaxSubArray {
             // 比较每一步的最大值
             maxNum = Math.max(maxNum, currSum);
         }
-
         return maxNum;
-
     }
 
 

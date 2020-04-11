@@ -1,4 +1,4 @@
-package top.gloryjie.learn.leetcode.array;
+package top.gloryjie.learn.leetcode.array.easy;
 
 import java.util.Arrays;
 import java.util.HashMap;
