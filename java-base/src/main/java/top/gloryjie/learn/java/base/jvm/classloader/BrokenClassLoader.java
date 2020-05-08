@@ -25,12 +25,15 @@ public class BrokenClassLoader extends URLClassLoader {
                     // 此处就打破双亲委派
                     c = findClass(name);
                 } catch (ClassNotFoundException e) {
+                    // ignore
                 }
-                // 自身无法加载,则直接交给父类或SystemClassLoader(AppClassLoader)
-                if (getParent() != null) {
-                    c = getParent().loadClass(name);
-                } else if (c == null) {
-                    c = getSystemClassLoader().loadClass(name);
+                if (c == null) {
+                    if (getParent() != null) {
+                        // 自身无法加载,则直接交给父类或SystemClassLoader(AppClassLoader)
+                        c = getParent().loadClass(name);
+                    } else {
+                        c = getSystemClassLoader().loadClass(name);
+                    }
                 }
             }
             if (c == null) {
