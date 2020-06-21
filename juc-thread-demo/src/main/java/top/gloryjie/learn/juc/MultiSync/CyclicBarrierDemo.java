@@ -17,7 +17,7 @@ public class CyclicBarrierDemo {
     public void modeOne() {
         ExecutorService executor = Executors.newFixedThreadPool(1);
 
-        // 因为CyclicBarrier是同步调用回调函数才执行唤醒线程,所以此处使用线程池来执行回调任务
+        // 因为CyclicBarrier是同步执行回调函数才执行唤醒线程,所以此处使用线程池来执行回调任务
         CyclicBarrier cyclicBarrier = new CyclicBarrier(2, () -> {
             System.out.println("回调线程: " + Thread.currentThread().getName());
             try {

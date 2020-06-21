@@ -1,9 +1,6 @@
 package top.gloryjie.learn.juc.MultiSync;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * 主线程等待多个线程步调一致问题
@@ -64,7 +61,7 @@ public class CountDownDemo {
 
         new Thread(() -> {
             try {
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(ThreadLocalRandom.current().nextInt(10));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -95,34 +92,30 @@ public class CountDownDemo {
      * @throws InterruptedException
      */
     public void modeThree() throws InterruptedException {
-        CountDownLatch latch = new CountDownLatch(2);
-        ExecutorService executor = Executors.newFixedThreadPool(2);
+        int taskSum = 2;
+        CountDownLatch latch = new CountDownLatch(taskSum);
+        ExecutorService executor = Executors.newFixedThreadPool(taskSum);
 
-        executor.execute(() -> {
-            try {
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("mode3 Thread 1 work done");
-            // 计数器减1
-            latch.countDown();
-        });
+        for (int i = 0; i < taskSum; i++) {
+            int taskNum = i;
+            executor.execute(() -> {
+                try {
+                    TimeUnit.SECONDS.sleep(ThreadLocalRandom.current().nextInt(5));
+                    System.out.println("任务 " + taskNum + " 结束");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    // 计数器减1
+                    latch.countDown();
+                }
+            });
+        }
 
-        executor.execute(() -> {
-            try {
-                TimeUnit.SECONDS.sleep(4);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("mode3 Thread 2 work done");
-            latch.countDown();
-        });
 
         // 主线程等待上面两个任务工作完成
         latch.await();
 
-        System.out.println("mode3 two thread had done");
+        System.out.println("任务全部结束, 主线程继续执行");
         executor.shutdown();
     }
 }
