@@ -1,0 +1,22 @@
+elasticjob:
+  reg-center:
+    server-lists: localhost:2181
+    namespace: elasticjob
+  jobs:
+    jojo:
+      elasticJobClass: top.gloryjie.learn.elastic.job.JobDemo
+      cron: "1 1 1 1 1 ? 2000-2090"
+#      cron: 0/5 * * * * ?
+      sharding-total-count: 3
+      jobBootstrapBeanName: jojo
+      overwrite: true
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:job_event_storage
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+server:
+  port: 8567

@@ -1,9 +1,14 @@
 package top.gloryjie.learn.juc.future;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * @author jie
@@ -11,14 +16,55 @@ import java.util.concurrent.TimeUnit;
  */
 public class CompletableFutureDemo {
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) throws ExecutionException, InterruptedException, TimeoutException {
         CompletableFutureDemo demo = new CompletableFutureDemo();
 
 //        demo.modeOne();
-
 //        demo.modeTwo();
+//        demo.modeThree();
 
-        demo.modeThree();
+//        CompletableFuture<String> test = CompletableFuture.completedFuture("jojo");
+//        CompletableFuture<String> apply = test.thenApply(i -> {
+//            System.out.println("execute apply: " + i);
+//            return "jojo2";
+//        });
+
+        List<CompletableFuture<String>> list = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            int finalI = i;
+            list.add(CompletableFuture.supplyAsync(() -> {
+                try {
+                    TimeUnit.SECONDS.sleep(finalI);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return "jojo: " + finalI;
+            }));
+        }
+
+        CompletableFuture<Void> all = CompletableFuture.allOf(list.toArray(new CompletableFuture[0]));
+        try {
+            all.get(3, TimeUnit.SECONDS);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        List<String> resultList = new ArrayList<>();
+        list.forEach(task ->{
+            if (task.isDone()){
+                String result = task.getNow("");
+                if (!result.equals("")){
+                    resultList.add(result);
+                }
+            }
+            task.thenAcceptAsync(s -> {
+                System.out.println("放入缓存：" + s);
+            });
+        });
+
+        System.out.println("result: " + resultList.toString());
+
+
+        TimeUnit.SECONDS.sleep(10);
     }
 
 

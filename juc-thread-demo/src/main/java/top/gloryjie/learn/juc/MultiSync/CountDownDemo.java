@@ -1,5 +1,7 @@
 package top.gloryjie.learn.juc.MultiSync;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.*;
 
 /**
@@ -11,10 +13,34 @@ public class CountDownDemo {
 
     public static void main(String[] args) throws InterruptedException {
         CountDownDemo downDemo = new CountDownDemo();
-
 //        downDemo.modeOne();
+//        downDemo.modeThree();
 
-        downDemo.modeThree();
+        // future 实现CountDownLatch一样的功能
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        List<Future<String>> futureList = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            int taskNum = i;
+            Future<String> future = executor.submit(() -> {
+                try {
+                    TimeUnit.SECONDS.sleep(ThreadLocalRandom.current().nextInt(5));
+                    return String.format("task %s complete", taskNum);
+                } catch (InterruptedException e) {
+                    throw e;
+                }
+            });
+            futureList.add(future);
+        }
+
+        for (Future<String> future : futureList) {
+            try {
+                String result = future.get();
+                System.out.println(result);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+        executor.shutdown();
     }
 
 

@@ -9,6 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import top.gloryjie.learn.shardingjdbc.mode.User;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.IntStream;
 
 /**
@@ -32,8 +35,45 @@ public class UserDaoTest {
 //
 //            userDao.save(user);
 //        });
+        System.out.println(Arrays.toString("()".split("")));
+//        ConfigurationPropertyName name = ConfigurationPropertyName.of("spring.shardingsphere.datasource.sharding_ds-0");
 
-        ConfigurationPropertyName name = ConfigurationPropertyName.of("spring.shardingsphere.datasource.sharding_ds-0");
+        System.out.println(isValid("()"));
     }
 
+    public boolean isValid(String s) {
+        if(s == null || s.length() == 1){
+            return false;
+        }
+        String[] strs = s.split("");
+        List<String> stack = new ArrayList(strs.length);
+        for(String str : strs){
+            if("}".equals(str)){
+                if(stack.isEmpty() || !"{".equals(stack.get(stack.size()-1))){
+                    return false;
+                }else{
+                    stack.remove(stack.size() - 1);
+                    continue;
+                }
+            }
+            if("]".equals(str)){
+                if(stack.isEmpty() || !"[".equals(stack.get(stack.size()-1))){
+                    return false;
+                }else{
+                    stack.remove(stack.size() - 1);
+                    continue;
+                }
+            }
+            if(")".equals(str)){
+                if(stack.isEmpty() || !"(".equals(stack.get(stack.size()-1))){
+                    return false;
+                }else{
+                    stack.remove(stack.size() - 1);
+                    continue;
+                }
+            }
+            stack.add(str);
+        }
+        return stack.isEmpty();
+    }
 }

@@ -8,23 +8,26 @@ import java.util.concurrent.*;
  */
 public class FutureTaskDemo {
 
-    public static void main(String[] args) {
-        ExecutorService executorService = Executors.newFixedThreadPool(1);
+    public static void main(String[] args) throws Exception{
+        ThreadPoolExecutor executorService = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
 
-        Callable<Integer> task = ()->{
+        FutureTask<Integer> futureTask = new FutureTask<>(()->{
             try {
                 TimeUnit.SECONDS.sleep(2);
             }catch (InterruptedException e){
                 System.out.println("task been interrupted");
             }
             return 3;
-        };
+        });
 
-        FutureTask<Integer> futureTask = new FutureTask<>(task);
+        executorService.execute(futureTask);
 
+        Integer result = futureTask.get();
 
-        executorService.submit(futureTask);
-
+        // 此处Future的实现就是FutureTask
+        Future<String> future = executorService.submit(() -> {
+            return "result";
+        });
 
         try {
             TimeUnit.SECONDS.sleep(1);

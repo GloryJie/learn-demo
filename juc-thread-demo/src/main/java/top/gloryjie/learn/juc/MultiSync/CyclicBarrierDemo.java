@@ -25,7 +25,8 @@ public class CyclicBarrierDemo {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            executor.execute(() -> System.out.println("combine product with component 1 and 2 done"));
+//            executor.execute(() -> System.out.println("combine product with component 1 and 2 done"));
+            throw new RuntimeException("模拟异常");
         });
 
         new Thread(() -> {
@@ -39,7 +40,7 @@ public class CyclicBarrierDemo {
                     System.out.println("clean component 1 done");
                 } catch (InterruptedException | BrokenBarrierException e) {
                     e.printStackTrace();
-                    break;
+//                    break;
                 }
             }
         }, "Build-Thread-1").start();
@@ -57,7 +58,7 @@ public class CyclicBarrierDemo {
 
                 } catch (InterruptedException | BrokenBarrierException e) {
                     e.printStackTrace();
-                    break;
+//                    break;
                 }
             }
         }, "Build-Thread-2").start();

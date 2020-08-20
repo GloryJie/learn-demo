@@ -19,4 +19,11 @@
         </dependency>
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>cloudrea</id>
+            <url>https://repository.cloudera.com/artifactory/cloudera-repos</url>
+        </repository>
+    </repositories>
+
 </project>

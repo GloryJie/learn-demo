@@ -23,6 +23,11 @@
         <module>task-scheduler</module>
         <module>scala</module>
         <module>design-pattern</module>
+        <module>apache-common</module>
+        <module>network</module>
+        <module>spring</module>
+        <module>disruptor</module>
+        <module>distribute-job</module>
     </modules>
 
     <parent>
@@ -31,6 +36,10 @@
         <version>2.1.6.RELEASE</version>
         <relativePath/>
     </parent>
+
+    <properties>
+        <netty.version>4.1.50.Final</netty.version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -48,6 +57,16 @@
             <artifactId>commons-lang3</artifactId>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     
 
