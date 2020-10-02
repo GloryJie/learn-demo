@@ -5,10 +5,11 @@ elasticjob:
   jobs:
     jojo:
       elasticJobClass: top.gloryjie.learn.elastic.job.JobDemo
-      cron: "1 1 1 1 1 ? 2000-2090"
-#      cron: 0/5 * * * * ?
+#      cron: "1 1 1 1 1 ? 2000-2090"
+      cron: 0 * * * * ?
       sharding-total-count: 3
-      jobBootstrapBeanName: jojo
+      monitor-execution: true
+      failover: true
       overwrite: true
 
 spring:
@@ -17,6 +18,11 @@ spring:
     driver-class-name: org.h2.Driver
     username: sa
     password:
+#  main:
+#    web-application-type: none
 
-server:
-  port: 8567
+logging:
+  level:
+    org:
+      apache:
+        shardingsphere: debug
