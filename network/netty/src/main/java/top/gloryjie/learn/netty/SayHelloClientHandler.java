@@ -1,4 +1,4 @@
-package top.gloryjie.learn.network.netty.quickstart;
+package top.gloryjie.learn.netty;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

@@ -1,57 +1,57 @@
-package top.gloryjie.learn.network.netty.quickstart;
+package top.gloryjie.learn.netty;
 
-import io.netty.bootstrap.Bootstrap;
+import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
 
-import javax.xml.ws.Holder;
 import java.net.InetSocketAddress;
 
 /**
  * @author Jie
  * @since 2020/6/28
  */
-public class NettyClientDemo {
+public class NettyServerDemo {
 
     private int port;
 
-    private String host;
-
-    public NettyClientDemo(int port, String host) {
+    public NettyServerDemo(int port) {
         this.port = port;
-        this.host = host;
     }
 
     public void start() throws InterruptedException {
+        EchoServerHandler serverHandler = new EchoServerHandler();
+
         EventLoopGroup eventExecutors = new NioEventLoopGroup();
         try {
-            Bootstrap bootstrap = new Bootstrap();
+            ServerBootstrap bootstrap = new ServerBootstrap();
             bootstrap.group(eventExecutors)
-                    .channel(NioSocketChannel.class)
-                    .remoteAddress(new InetSocketAddress(host, port))
-                    .handler(new ChannelInitializer<SocketChannel>() {
+                    .channel(NioServerSocketChannel.class)
+                    .localAddress(new InetSocketAddress(port))
+                    .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
-                            socketChannel.pipeline().addLast(new SayHelloClientHandler());
+                            socketChannel.pipeline().addLast(serverHandler);
                         }
                     });
-            ChannelFuture channelFuture = bootstrap.connect().sync();
+            ChannelFuture channelFuture = bootstrap.bind().sync();
             channelFuture.channel().closeFuture().sync();
-        }finally {
+        }  finally {
             eventExecutors.shutdownGracefully().sync();
         }
     }
 
     public static void main(String[] args) {
+        int port = 9090;
+
+        NettyServerDemo serverDemo = new NettyServerDemo(port);
         try {
-            new NettyClientDemo(9090, "localhost").start();
+            serverDemo.start();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
 }
