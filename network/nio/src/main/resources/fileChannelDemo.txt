@@ -1,1 +1,1 @@
-hello, FileChannel, 你好呀, 文件管道
+HELLO, FileChannel, 你好呀, 文件管道

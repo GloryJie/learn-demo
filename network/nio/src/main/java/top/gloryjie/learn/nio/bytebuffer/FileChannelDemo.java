@@ -1,4 +1,4 @@
-package top.gloryjie.learn.nio;
+package top.gloryjie.learn.nio.bytebuffer;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,9 +17,9 @@ import java.nio.charset.StandardCharsets;
 public class FileChannelDemo {
 
     public static void main(String[] args) {
-        String path = "/Users/jie/project/IdeaProject/learn-demo/network/nio/src/main/resources/fileChannelDemo.txt";
+        String path = "/Users/nuc/workspace/mygithub/learn-demo/network/nio/src/main/resources/fileChannelDemo.txt";
         String content = "hello, FileChannel, 你好呀, 文件管道";
-        String copyPath = "/Users/jie/project/IdeaProject/learn-demo/network/nio/src/main/resources/fileChannelDemoCopy.txt";
+        String copyPath = "/Users/nuc/workspace/mygithub/learn-demo/network/nio/src/main/resources/fileChannelDemoCopy.txt";
         writeContent(content, path);
 
         System.out.println(readContent(path));

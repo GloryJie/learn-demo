@@ -1,4 +1,4 @@
-package top.gloryjie.learn.network.netty.quickstart;
+package top.gloryjie.learn.netty.echo;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -17,16 +17,26 @@ import java.nio.charset.StandardCharsets;
 @ChannelHandler.Sharable
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
+    /**
+     * 读取数据的事件回调，可在该方法内读取客户端发送过来的数据
+     * @param ctx 上下文对象，可以获取channel，pipeline等
+     * @param msg 客户端发送过来的数据，通常是ByteBuf的一个实例
+     */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf byteBuf = (ByteBuf) msg;
         System.out.println("Server received content: " + byteBuf.toString(StandardCharsets.UTF_8));
-        ctx.write(byteBuf);
+        System.out.println("client address: " + ctx.channel().remoteAddress().toString());
     }
 
+    /**
+     * 数据读取完毕后的回调方法
+     * @param ctx
+     * @throws Exception
+     */
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        ctx.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
+        ctx.writeAndFlush(Unpooled.copiedBuffer("hello, client~~~".getBytes(StandardCharsets.UTF_8)));
     }
 
 
