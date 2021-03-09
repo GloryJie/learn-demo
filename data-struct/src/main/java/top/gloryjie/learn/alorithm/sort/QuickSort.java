@@ -17,9 +17,9 @@ public class QuickSort<E extends Comparable> implements Sort<E> {
         if (low >= high) {
             return;
         }
-        int pivot = partition(elements, low, high);
-        sort(elements, low, pivot - 1);
-        sort(elements, pivot + 1, high);
+        int pivotIndex = partition(elements, low, high);
+        sort(elements, low, pivotIndex - 1);
+        sort(elements, pivotIndex + 1, high);
     }
 
     /**
@@ -28,6 +28,7 @@ public class QuickSort<E extends Comparable> implements Sort<E> {
      * @param elements
      * @param low
      * @param high
+     * @return pivotIndex
      */
     private int partition(E[] elements, int low, int high) {
         int left = low;
