@@ -12,7 +12,6 @@
     <artifactId>cache</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>redis</module>
         <module>ehcache</module>
         <module>guava</module>
         <module>caffeine</module>

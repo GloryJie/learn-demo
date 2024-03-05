@@ -10,24 +10,21 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>curator-demo</module>
-        <module>juc-thread-demo</module>
         <module>sharding-jdbc</module>
         <module>distributed-lock</module>
         <module>mybatis</module>
-        <module>data-struct</module>
         <module>mq</module>
         <module>apache-poi</module>
         <module>java-base</module>
         <module>cache</module>
-        <module>hadoop</module>
         <module>task-scheduler</module>
-        <module>scala</module>
         <module>design-pattern</module>
         <module>apache-common</module>
         <module>network</module>
         <module>spring</module>
         <module>disruptor</module>
         <module>distribute-job</module>
+        <module>resilience4j</module>
     </modules>
 
     <parent>
