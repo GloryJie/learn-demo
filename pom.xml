@@ -25,6 +25,7 @@
         <module>disruptor</module>
         <module>distribute-job</module>
         <module>resilience4j</module>
+        <module>gis</module>
     </modules>
 
     <parent>
